@@ -41,14 +41,14 @@ class Globe {
         
         this.init();
         window.addEventListener('resize', this.onWindowResize.bind(this));
-        
-        // Listen for theme changes
-        this.setupThemeListener();
     }
 
     async init() {
         try {
             await this.loadCountries();
+            // Initialize theme after loading
+            this.setupThemeListener();
+            // Start animation
             this.animate();
         } catch (error) {
             console.error('Error initializing globe:', error);
@@ -92,59 +92,16 @@ class Globe {
 
     setupThemeListener() {
         // Watch for changes in the color scheme
-        window.matchMedia('(prefers-color-scheme: light)').addListener((e) => {
-            this.currentTheme = e.matches ? 'light' : 'dark';
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+        this.currentTheme = prefersDark.matches ? 'dark' : 'light';
+        
+        prefersDark.addEventListener('change', (e) => {
+            this.currentTheme = e.matches ? 'dark' : 'light';
             this.updateTheme();
         });
-        
-        // Set initial theme
-        this.currentTheme = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+
+        // Initial theme update
         this.updateTheme();
-    }
-
-    updateTheme() {
-        // Update sun visibility
-        if (this.sun) {
-            this.sun.material.opacity = this.currentTheme === 'light' ? 1 : 0;
-            this.sunGlow.material.opacity = this.currentTheme === 'light' ? 0.3 : 0;
-        }
-
-        // Update clouds visibility
-        if (this.clouds) {
-            this.clouds.material.opacity = this.currentTheme === 'light' ? 0.3 : 0;
-        }
-
-        // Update cloud particles visibility
-        if (this.cloudParticles) {
-            this.cloudParticles.children.forEach(cloud => {
-                cloud.material.opacity = this.currentTheme === 'light' ? 0.4 : 0;
-            });
-        }
-
-        // Update wireframe color
-        if (this.globe) {
-            const wireframe = this.globe.children.find(child => child instanceof THREE.LineSegments);
-            if (wireframe) {
-                wireframe.material.color.setHex(this.currentTheme === 'light' ? 0x2A9D8F : 0x4ECDC4);
-                wireframe.material.opacity = this.currentTheme === 'light' ? 0.2 : 0.1;
-            }
-        }
-        
-        // Update globe material
-        if (this.globe) {
-            this.globe.material.color.setHex(this.currentTheme === 'light' ? 0xFFFFFF : 0x000000);
-            this.globe.material.opacity = this.currentTheme === 'light' ? 0.9 : 0.8;
-        }
-        
-        // Update ambient light intensity
-        this.scene.traverse((child) => {
-            if (child instanceof THREE.AmbientLight) {
-                child.intensity = this.currentTheme === 'light' ? 0.8 : 0.6;
-            }
-            if (child instanceof THREE.PointLight) {
-                child.intensity = this.currentTheme === 'light' ? 1.2 : 1.0;
-            }
-        });
     }
 
     createGlobe() {
@@ -181,43 +138,43 @@ class Globe {
             opacity: this.currentTheme === 'light' ? 1 : 0
         });
         this.sun = new THREE.Mesh(sunGeometry, sunMaterial);
-        this.sun.position.set(300, 100, -200);
+        this.sun.position.set(300, 150, -200); // Adjusted position
         this.scene.add(this.sun);
 
-        // Create Sun glow
-        const sunGlowGeometry = new THREE.SphereGeometry(35, 32, 32);
+        // Create Sun glow with larger size
+        const sunGlowGeometry = new THREE.SphereGeometry(40, 32, 32);
         const sunGlowMaterial = new THREE.MeshBasicMaterial({
             color: 0xFFFF00,
             transparent: true,
-            opacity: this.currentTheme === 'light' ? 0.3 : 0
+            opacity: this.currentTheme === 'light' ? 0.4 : 0
         });
         this.sunGlow = new THREE.Mesh(sunGlowGeometry, sunGlowMaterial);
         this.sun.add(this.sunGlow);
 
-        // Create Clouds
-        const cloudGeometry = new THREE.SphereGeometry(102, 32, 32);
+        // Create Clouds with slightly larger size
+        const cloudGeometry = new THREE.SphereGeometry(103, 32, 32);
         const cloudMaterial = new THREE.MeshPhongMaterial({
             color: 0xFFFFFF,
             transparent: true,
-            opacity: this.currentTheme === 'light' ? 0.3 : 0,
+            opacity: this.currentTheme === 'light' ? 0.4 : 0,
             side: THREE.DoubleSide
         });
         this.clouds = new THREE.Mesh(cloudGeometry, cloudMaterial);
         this.scene.add(this.clouds);
 
-        // Create multiple small cloud particles
+        // Create more cloud particles
         this.cloudParticles = new THREE.Group();
-        const smallCloudGeometry = new THREE.SphereGeometry(3, 8, 8);
+        const smallCloudGeometry = new THREE.SphereGeometry(4, 8, 8);
         const smallCloudMaterial = new THREE.MeshPhongMaterial({
             color: 0xFFFFFF,
             transparent: true,
-            opacity: this.currentTheme === 'light' ? 0.4 : 0
+            opacity: this.currentTheme === 'light' ? 0.5 : 0
         });
 
-        for (let i = 0; i < 20; i++) {
-            const angle = (i / 20) * Math.PI * 2;
+        for (let i = 0; i < 30; i++) { // Increased number of particles
+            const angle = (i / 30) * Math.PI * 2;
             const radius = 120;
-            const height = Math.random() * 40 - 20;
+            const height = Math.random() * 50 - 25; // Increased height variation
             
             const cloud = new THREE.Mesh(smallCloudGeometry, smallCloudMaterial.clone());
             cloud.position.set(
@@ -226,13 +183,16 @@ class Globe {
                 Math.sin(angle) * radius
             );
             cloud.scale.set(
+                1 + Math.random() * 3, // Increased scale variation
                 1 + Math.random() * 2,
-                1 + Math.random() * 1,
-                1 + Math.random() * 2
+                1 + Math.random() * 3
             );
             this.cloudParticles.add(cloud);
         }
         this.scene.add(this.cloudParticles);
+
+        // Force initial theme update
+        this.updateTheme();
     }
 
     async loadCountries() {
@@ -299,6 +259,41 @@ class Globe {
         return this.continentColors[this.currentTheme][continent];
     }
 
+    updateTheme() {
+        const isLight = this.currentTheme === 'light';
+        console.log('Updating theme:', this.currentTheme);
+
+        // Update sun visibility with higher opacity
+        if (this.sun) {
+            this.sun.material.opacity = isLight ? 1 : 0;
+            this.sunGlow.material.opacity = isLight ? 0.5 : 0;
+            console.log('Sun opacity:', this.sun.material.opacity);
+        }
+
+        // Update clouds visibility with higher opacity
+        if (this.clouds) {
+            this.clouds.material.opacity = isLight ? 0.5 : 0;
+            console.log('Clouds opacity:', this.clouds.material.opacity);
+        }
+
+        // Update cloud particles visibility
+        if (this.cloudParticles) {
+            this.cloudParticles.children.forEach(cloud => {
+                cloud.material.opacity = isLight ? 0.6 : 0;
+            });
+        }
+
+        // Update lighting
+        this.scene.traverse((child) => {
+            if (child instanceof THREE.AmbientLight) {
+                child.intensity = isLight ? 1.0 : 0.6;
+            }
+            if (child instanceof THREE.PointLight) {
+                child.intensity = isLight ? 1.5 : 1.0;
+            }
+        });
+    }
+
     onWindowResize() {
         const aspect = this.container.clientWidth / this.container.clientHeight;
         this.camera.aspect = aspect;
@@ -324,16 +319,12 @@ class Globe {
             this.cloudParticles.rotation.y += 0.0005;
         }
         
-        // Slowly rotate starfield in opposite direction
-        if (this.stars) {
-            this.stars.rotation.y -= 0.0002;
-        }
-
-        // Animate sun glow
+        // Animate sun glow with more pronounced effect
         if (this.sunGlow) {
-            this.sunGlow.scale.x = 1 + Math.sin(Date.now() * 0.001) * 0.1;
-            this.sunGlow.scale.y = 1 + Math.sin(Date.now() * 0.001) * 0.1;
-            this.sunGlow.scale.z = 1 + Math.sin(Date.now() * 0.001) * 0.1;
+            const pulseScale = 0.15; // Increased pulse effect
+            this.sunGlow.scale.x = 1 + Math.sin(Date.now() * 0.001) * pulseScale;
+            this.sunGlow.scale.y = 1 + Math.sin(Date.now() * 0.001) * pulseScale;
+            this.sunGlow.scale.z = 1 + Math.sin(Date.now() * 0.001) * pulseScale;
         }
         
         this.controls.update();
