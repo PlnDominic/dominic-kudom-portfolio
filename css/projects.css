@@ -1,0 +1,198 @@
+/* Projects Page Specific Styles */
+
+/* Hero Section */
+.projects-hero {
+    height: 40vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin-top: 60px;
+    background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('../images/hero-bg.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+.projects-hero h1 {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    background: linear-gradient(45deg, #fff, #0000FF);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.projects-hero p {
+    font-size: 1.2rem;
+    opacity: 0.8;
+}
+
+/* Main Layout */
+.projects-container {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 2rem;
+    padding: 2rem;
+    max-width: 1440px;
+    margin: 0 auto;
+}
+
+/* Sidebar */
+.projects-sidebar {
+    position: sticky;
+    top: 100px;
+    height: fit-content;
+    padding: 2rem;
+    background: rgba(255,255,255,0.05);
+    border-radius: 8px;
+    backdrop-filter: blur(10px);
+}
+
+.sidebar-content h2 {
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+}
+
+.sidebar-content p {
+    opacity: 0.8;
+    line-height: 1.6;
+}
+
+/* Projects Grid */
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+/* Project Cards */
+.project-card {
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    background: var(--background-color);
+    transition: transform 0.3s ease;
+}
+
+.project-card:hover {
+    transform: scale(1.02);
+}
+
+.project-thumbnail {
+    position: relative;
+    aspect-ratio: 16/9;
+    overflow: hidden;
+}
+
+.project-thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.project-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.project-card:hover .project-overlay {
+    opacity: 1;
+}
+
+.project-card:hover .project-thumbnail img {
+    transform: scale(1.1);
+}
+
+.project-details {
+    text-align: center;
+    padding: 1rem;
+}
+
+.project-details h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    color: #fff;
+}
+
+.category {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    background: #0000FF;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    margin-bottom: 1rem;
+}
+
+.project-link {
+    display: inline-block;
+    padding: 0.5rem 1.5rem;
+    background: transparent;
+    border: 2px solid #fff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+}
+
+.project-link:hover {
+    background: #fff;
+    color: #000;
+}
+
+/* Responsive Design */
+@media (max-width: 1440px) {
+    .projects-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 1024px) {
+    .projects-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .projects-sidebar {
+        position: relative;
+        top: 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .projects-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .projects-hero h1 {
+        font-size: 3rem;
+    }
+}
+
+/* Interactive 3D Elements */
+.project-card {
+    transform-style: preserve-3d;
+    perspective: 1000px;
+}
+
+.project-card:hover {
+    transform: translateY(-5px) rotateX(5deg);
+}
+
+/* Fluid Typography */
+@media screen and (min-width: 320px) {
+    .projects-hero h1 {
+        font-size: calc(2rem + 2vw);
+    }
+    
+    .project-details h3 {
+        font-size: calc(1rem + 0.5vw);
+    }
+}
