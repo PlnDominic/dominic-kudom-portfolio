@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Get elements
     const aboutSection = document.getElementById('about');
     const aboutLink = document.querySelector('a[href="#about"]');
+    const projectsLink = document.querySelector('a[href="projects.html"]');
     
     if (aboutSection && aboutLink) {
         // Close about section when clicking outside
@@ -16,6 +17,14 @@ document.addEventListener('DOMContentLoaded', () => {
         aboutLink.addEventListener('click', (e) => {
             e.preventDefault();
             aboutSection.classList.toggle('visible');
+        });
+    }
+
+    // Handle projects link navigation
+    if (projectsLink) {
+        projectsLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.location.href = 'projects.html';
         });
     }
 
