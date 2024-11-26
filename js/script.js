@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        // Toggle about section
+        // Toggle about section only for the about link
         aboutLink.addEventListener('click', (e) => {
             e.preventDefault();
             aboutSection.classList.toggle('visible');
