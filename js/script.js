@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (projectsLink) {
         projectsLink.addEventListener('click', (e) => {
             e.preventDefault();
-            window.location.href = 'projects.html';
+            window.location.href = '/dominic-kudom-portfolio/projects.html';
         });
     }
 
