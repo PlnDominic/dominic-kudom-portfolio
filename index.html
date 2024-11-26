@@ -419,46 +419,106 @@
         /* Responsive Breakpoints */
         /* Mobile (320px) */
         @media screen and (min-width: 320px) and (max-width: 767px) {
+            #globe-container {
+                position: fixed;
+                width: 100%;
+                height: 100%;
+                z-index: 0;
+            }
+
             .logo {
                 font-size: 1rem;
                 top: 1rem;
-                left: 1rem;
+                left: 50%;
+                transform: translateX(-50%);
+                text-align: center;
+                width: auto;
             }
 
             .freelance-info {
                 font-size: 0.7rem;
-                top: 1rem;
-                right: 1rem;
+                top: auto;
+                bottom: 6rem;
+                left: 50%;
+                transform: translateX(-50%);
+                text-align: center;
+                width: 100%;
             }
 
             .company-name {
                 font-size: 1.5rem;
-                bottom: 20%;
-                left: 1rem;
+                top: 5rem;
+                left: 50%;
+                transform: translateX(-50%);
+                text-align: center;
+                width: 100%;
+                position: fixed;
             }
 
             .tech-stack {
                 font-size: 0.7rem;
-                bottom: 15%;
-                left: 1rem;
+                top: 10rem;
+                left: 50%;
+                transform: translateX(-50%);
+                display: flex;
                 flex-wrap: wrap;
-                max-width: 90%;
+                justify-content: center;
+                gap: 0.5rem;
+                width: 90%;
+                text-align: center;
+                position: fixed;
             }
 
             .tech-stack span {
                 margin: 0.2rem;
+                background: rgba(0, 0, 0, 0.5);
+                padding: 0.3rem 0.6rem;
+                border-radius: 15px;
             }
 
             .nav-links {
-                bottom: 1rem;
-                left: 1rem;
+                bottom: 2rem;
+                left: 50%;
+                transform: translateX(-50%);
                 font-size: 0.7rem;
+                display: flex;
+                justify-content: center;
+                gap: 1rem;
+                width: 90%;
+                position: fixed;
+            }
+
+            .nav-links a {
+                background: rgba(0, 0, 0, 0.5);
+                padding: 0.5rem 1rem;
+                border-radius: 20px;
+            }
+
+            .about-section {
+                background: rgba(0, 0, 0, 0.8);
+                backdrop-filter: blur(10px);
+                -webkit-backdrop-filter: blur(10px);
             }
 
             .about-content {
-                padding: 1rem;
+                padding: 2rem 1rem;
                 font-size: 0.8rem;
                 max-width: 90%;
+                margin: 0 auto;
+                background: transparent;
+            }
+
+            .about-content h2 {
+                text-align: center;
+                margin-bottom: 1rem;
+            }
+
+            .about-content ul {
+                padding-left: 1.2rem;
+            }
+
+            .about-content li {
+                margin: 0.5rem 0;
             }
         }
 
@@ -468,12 +528,23 @@
                 font-size: 1.2rem;
                 top: 2rem;
                 left: 2rem;
+                z-index: 30;
             }
 
             .freelance-info {
                 font-size: 0.8rem;
                 top: 2rem;
                 right: 2rem;
+                font-size: 0.8rem;
+                text-align: right;
+                z-index: 30;
+                background: rgba(0, 0, 0, 0.7);
+                padding: 0.5rem 1rem;
+                border-radius: 20px;
+                backdrop-filter: blur(5px);
+                -webkit-backdrop-filter: blur(5px);
+                transform: none;
+                left: auto;
             }
 
             .company-name {
