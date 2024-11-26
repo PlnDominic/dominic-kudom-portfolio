@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (projectsLink) {
         projectsLink.addEventListener('click', (e) => {
             e.preventDefault();
-            window.location.href = '/dominic-kudom-portfolio/projects.html';
+            window.location.href = 'https://plndominic.github.io/dominic-kudom-portfolio/projects.html';
         });
     }
 
