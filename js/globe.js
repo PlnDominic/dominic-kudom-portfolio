@@ -36,6 +36,7 @@ class Globe {
         this.setupRenderer();
         this.setupLights();
         this.createGlobe();
+        this.createSunAndClouds();
         this.setupControls();
         
         this.init();
@@ -102,6 +103,24 @@ class Globe {
     }
 
     updateTheme() {
+        // Update sun visibility
+        if (this.sun) {
+            this.sun.material.opacity = this.currentTheme === 'light' ? 1 : 0;
+            this.sunGlow.material.opacity = this.currentTheme === 'light' ? 0.3 : 0;
+        }
+
+        // Update clouds visibility
+        if (this.clouds) {
+            this.clouds.material.opacity = this.currentTheme === 'light' ? 0.3 : 0;
+        }
+
+        // Update cloud particles visibility
+        if (this.cloudParticles) {
+            this.cloudParticles.children.forEach(cloud => {
+                cloud.material.opacity = this.currentTheme === 'light' ? 0.4 : 0;
+            });
+        }
+
         // Update wireframe color
         if (this.globe) {
             const wireframe = this.globe.children.find(child => child instanceof THREE.LineSegments);
@@ -115,19 +134,6 @@ class Globe {
         if (this.globe) {
             this.globe.material.color.setHex(this.currentTheme === 'light' ? 0xFFFFFF : 0x000000);
             this.globe.material.opacity = this.currentTheme === 'light' ? 0.9 : 0.8;
-        }
-        
-        // Update countries colors
-        if (this.globe.children.length > 1) {
-            const countriesGroup = this.globe.children[1];
-            countriesGroup.traverse((child) => {
-                if (child instanceof THREE.Mesh) {
-                    const lat = child.userData.lat || 0;
-                    const lon = child.userData.lon || 0;
-                    child.material.color.setHex(this.getColorByCoordinate(lat, lon));
-                    child.material.opacity = this.currentTheme === 'light' ? 0.9 : 0.8;
-                }
-            });
         }
         
         // Update ambient light intensity
@@ -164,6 +170,69 @@ class Globe {
         const stars = getStarfield({ numStars: 5000, fog: false });
         this.scene.add(stars);
         this.stars = stars;
+    }
+
+    createSunAndClouds() {
+        // Create Sun
+        const sunGeometry = new THREE.SphereGeometry(30, 32, 32);
+        const sunMaterial = new THREE.MeshBasicMaterial({
+            color: 0xFFD700,
+            transparent: true,
+            opacity: this.currentTheme === 'light' ? 1 : 0
+        });
+        this.sun = new THREE.Mesh(sunGeometry, sunMaterial);
+        this.sun.position.set(300, 100, -200);
+        this.scene.add(this.sun);
+
+        // Create Sun glow
+        const sunGlowGeometry = new THREE.SphereGeometry(35, 32, 32);
+        const sunGlowMaterial = new THREE.MeshBasicMaterial({
+            color: 0xFFFF00,
+            transparent: true,
+            opacity: this.currentTheme === 'light' ? 0.3 : 0
+        });
+        this.sunGlow = new THREE.Mesh(sunGlowGeometry, sunGlowMaterial);
+        this.sun.add(this.sunGlow);
+
+        // Create Clouds
+        const cloudGeometry = new THREE.SphereGeometry(102, 32, 32);
+        const cloudMaterial = new THREE.MeshPhongMaterial({
+            color: 0xFFFFFF,
+            transparent: true,
+            opacity: this.currentTheme === 'light' ? 0.3 : 0,
+            side: THREE.DoubleSide
+        });
+        this.clouds = new THREE.Mesh(cloudGeometry, cloudMaterial);
+        this.scene.add(this.clouds);
+
+        // Create multiple small cloud particles
+        this.cloudParticles = new THREE.Group();
+        const smallCloudGeometry = new THREE.SphereGeometry(3, 8, 8);
+        const smallCloudMaterial = new THREE.MeshPhongMaterial({
+            color: 0xFFFFFF,
+            transparent: true,
+            opacity: this.currentTheme === 'light' ? 0.4 : 0
+        });
+
+        for (let i = 0; i < 20; i++) {
+            const angle = (i / 20) * Math.PI * 2;
+            const radius = 120;
+            const height = Math.random() * 40 - 20;
+            
+            const cloud = new THREE.Mesh(smallCloudGeometry, smallCloudMaterial.clone());
+            cloud.position.set(
+                Math.cos(angle) * radius,
+                height,
+                Math.sin(angle) * radius
+            );
+            cloud.scale.set(
+                1 + Math.random() * 2,
+                1 + Math.random() * 1,
+                1 + Math.random() * 2
+            );
+            this.cloudParticles.add(cloud);
+        }
+        this.scene.add(this.cloudParticles);
     }
 
     async loadCountries() {
@@ -245,9 +314,26 @@ class Globe {
             this.globe.rotation.y += 0.001;
         }
         
+        // Rotate clouds slightly slower than the globe
+        if (this.clouds) {
+            this.clouds.rotation.y += 0.0008;
+        }
+
+        // Rotate cloud particles
+        if (this.cloudParticles) {
+            this.cloudParticles.rotation.y += 0.0005;
+        }
+        
         // Slowly rotate starfield in opposite direction
         if (this.stars) {
             this.stars.rotation.y -= 0.0002;
+        }
+
+        // Animate sun glow
+        if (this.sunGlow) {
+            this.sunGlow.scale.x = 1 + Math.sin(Date.now() * 0.001) * 0.1;
+            this.sunGlow.scale.y = 1 + Math.sin(Date.now() * 0.001) * 0.1;
+            this.sunGlow.scale.z = 1 + Math.sin(Date.now() * 0.001) * 0.1;
         }
         
         this.controls.update();
