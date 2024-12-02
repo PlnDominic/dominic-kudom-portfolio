@@ -3,128 +3,105 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' https:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https:; font-src 'self' https://fonts.gstatic.com https:; img-src 'self' data: https:;">
     <title>Projects - Dominic Kudom Portfolio</title>
-    <link rel="stylesheet" href="./css/style.css">
-    <link rel="stylesheet" href="./css/projects.css">
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/projects.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <!-- Navigation -->
-    <nav>
-        <div class="nav-container container">
-            <a href="./index.html" class="logo">Dominic Kudom</a>
-            <ul class="nav-links">
-                <li><a href="./index.html">Home</a></li>
-                <li><a href="./projects.html" class="active">Projects</a></li>
-                <li><a href="./services.html">Services</a></li>
-            </ul>
+    <!-- Left Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-content">
+            <h2 class="sidebar-title">Portfolio Showcase</h2>
+            <p class="sidebar-text">Exploring the intersection of geospatial technology and web development through innovative projects.</p>
+            <div class="sidebar-categories">
+                <button class="category-btn active" data-category="all">All Projects</button>
+                <button class="category-btn" data-category="web">Web Development</button>
+                <button class="category-btn" data-category="mapping">GIS & Mapping</button>
+                <button class="category-btn" data-category="analysis">Spatial Analysis</button>
+            </div>
         </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <header class="projects-hero">
-        <div class="container">
-            <h1>My Projects</h1>
-            <p>Exploring the intersection of design and technology</p>
-        </div>
-    </header>
+    </aside>
 
     <!-- Main Content -->
-    <main class="projects-container">
-        <aside class="projects-sidebar">
-            <div class="sidebar-content">
-                <h2>Featured Work</h2>
-                <p>A collection of my best projects showcasing web development, design, and creative solutions.</p>
+    <main class="main-content">
+        <!-- Top Navigation -->
+        <nav class="top-nav">
+            <div class="nav-logo">
+                <a href="index.html">DK</a>
             </div>
-        </aside>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="projects.html" class="active">Projects</a>
+                <a href="#services">Services</a>
+            </div>
+        </nav>
 
-        <section class="projects-grid">
-            <!-- Project 1 -->
-            <article class="project-card">
-                <div class="project-thumbnail">
-                    <img src="./images/project1.jpg" alt="Project 1">
+        <!-- Projects Grid -->
+        <div class="projects-grid">
+            <!-- Web Development Projects -->
+            <article class="project-card" data-category="web">
+                <div class="project-image">
+                    <img src="assets/portfolio-preview.jpg" alt="Portfolio Website">
                     <div class="project-overlay">
-                        <div class="project-details">
-                            <h3>3D Globe Visualization</h3>
-                            <span class="category">WebGL / Three.js</span>
-                            <a href="#" class="project-link">View Project</a>
+                        <h3>Personal Portfolio</h3>
+                        <p>Modern portfolio website with 3D globe visualization</p>
+                        <div class="project-tech">
+                            <span>Three.js</span>
+                            <span>HTML</span>
+                            <span>CSS</span>
                         </div>
                     </div>
                 </div>
             </article>
 
-            <!-- Project 2 -->
-            <article class="project-card">
-                <div class="project-thumbnail">
-                    <img src="./images/project2.jpg" alt="Project 2">
+            <!-- GIS Projects -->
+            <article class="project-card" data-category="mapping">
+                <div class="project-image">
+                    <img src="assets/map-preview.jpg" alt="Interactive Map">
                     <div class="project-overlay">
-                        <div class="project-details">
-                            <h3>Portfolio Website</h3>
-                            <span class="category">Web Development</span>
-                            <a href="#" class="project-link">View Project</a>
+                        <h3>Interactive Map Dashboard</h3>
+                        <p>Real-time geospatial data visualization</p>
+                        <div class="project-tech">
+                            <span>Mapbox GL</span>
+                            <span>D3.js</span>
+                            <span>GeoJSON</span>
                         </div>
                     </div>
                 </div>
             </article>
 
-            <!-- Project 3 -->
-            <article class="project-card">
-                <div class="project-thumbnail">
-                    <img src="./images/project3.jpg" alt="Project 3">
+            <!-- Spatial Analysis Projects -->
+            <article class="project-card" data-category="analysis">
+                <div class="project-image">
+                    <img src="assets/analysis-preview.jpg" alt="Spatial Analysis">
                     <div class="project-overlay">
-                        <div class="project-details">
-                            <h3>Interactive Dashboard</h3>
-                            <span class="category">UI/UX Design</span>
-                            <a href="#" class="project-link">View Project</a>
+                        <h3>Spatial Data Analysis</h3>
+                        <p>Advanced geospatial analysis and visualization</p>
+                        <div class="project-tech">
+                            <span>Python</span>
+                            <span>GeoPandas</span>
+                            <span>QGIS</span>
                         </div>
                     </div>
                 </div>
             </article>
-
-            <!-- Project 4 -->
-            <article class="project-card">
-                <div class="project-thumbnail">
-                    <img src="./images/project4.jpg" alt="Project 4">
-                    <div class="project-overlay">
-                        <div class="project-details">
-                            <h3>Mobile App</h3>
-                            <span class="category">App Development</span>
-                            <a href="#" class="project-link">View Project</a>
-                        </div>
-                    </div>
-                </div>
-            </article>
-
-            <!-- Project 5 -->
-            <article class="project-card">
-                <div class="project-thumbnail">
-                    <img src="./images/project5.jpg" alt="Project 5">
-                    <div class="project-overlay">
-                        <div class="project-details">
-                            <h3>E-commerce Platform</h3>
-                            <span class="category">Full Stack</span>
-                            <a href="#" class="project-link">View Project</a>
-                        </div>
-                    </div>
-                </div>
-            </article>
-
-            <!-- Project 6 -->
-            <article class="project-card">
-                <div class="project-thumbnail">
-                    <img src="./images/project6.jpg" alt="Project 6">
-                    <div class="project-overlay">
-                        <div class="project-details">
-                            <h3>Data Visualization</h3>
-                            <span class="category">D3.js</span>
-                            <a href="#" class="project-link">View Project</a>
-                        </div>
-                    </div>
-                </div>
-            </article>
-        </section>
+        </div>
     </main>
 
-    <script src="./js/projects.js"></script>
+    <!-- Project Modal -->
+    <div class="project-modal" id="projectModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="modal-body"></div>
+        </div>
+    </div>
+
+    <script type="module" src="js/projects.js"></script>
+    <script src="js/script.js"></script>
 </body>
 </html>
