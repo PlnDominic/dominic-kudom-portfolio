@@ -1,9 +1,10 @@
-// Handle smooth scrolling and interactive elements
+// Add smooth scroll behavior
 document.addEventListener('DOMContentLoaded', () => {
-    // Project cards hover effect
+    // Initialize project cards
     const projectCards = document.querySelectorAll('.project-card');
     
     projectCards.forEach(card => {
+        // Add 3D tilt effect on mouse move
         card.addEventListener('mousemove', (e) => {
             const rect = card.getBoundingClientRect();
             const x = e.clientX - rect.left;
@@ -18,40 +19,40 @@ document.addEventListener('DOMContentLoaded', () => {
             card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
         });
         
+        // Reset card position on mouse leave
         card.addEventListener('mouseleave', () => {
             card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
         });
-    });
-
-    // Smooth scroll for navigation links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth'
-                });
-            }
+        
+        // Add click handler for project details
+        card.addEventListener('click', () => {
+            const projectTitle = card.querySelector('h3').textContent;
+            const projectCategory = card.querySelector('.category').textContent;
+            
+            // Here you can add code to show a modal or navigate to a detailed project page
+            console.log(`Clicked project: ${projectTitle} (${projectCategory})`);
         });
     });
-
-    // Intersection Observer for scroll animations
+    
+    // Add scroll animation for projects
     const observerOptions = {
-        threshold: 0.1
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
     };
-
-    const observer = new IntersectionObserver((entries) => {
+    
+    const projectObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
             }
         });
     }, observerOptions);
-
-    // Observe all project cards for scroll animations
+    
     projectCards.forEach(card => {
-        observer.observe(card);
-        card.classList.add('fade-in');
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(50px)';
+        card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+        projectObserver.observe(card);
     });
 });

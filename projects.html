@@ -4,127 +4,112 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Projects - Dominic Kudom Portfolio</title>
-    <link rel="stylesheet" href="./css/style.css">
-    <link rel="stylesheet" href="./css/projects.css">
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/projects.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
     <!-- Navigation -->
-    <nav>
-        <div class="nav-container container">
-            <a href="./index.html" class="logo">Dominic Kudom</a>
-            <ul class="nav-links">
-                <li><a href="./index.html">Home</a></li>
-                <li><a href="./projects.html" class="active">Projects</a></li>
-                <li><a href="./services.html">Services</a></li>
-            </ul>
+    <nav class="navbar">
+        <div class="nav-logo">
+            <a href="index.html">DK</a>
+        </div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="projects.html" class="active">Projects</a>
+            <a href="services.html">Services</a>
         </div>
     </nav>
 
     <!-- Hero Section -->
     <header class="projects-hero">
-        <div class="container">
-            <h1>My Projects</h1>
-            <p>Exploring the intersection of design and technology</p>
-        </div>
+        <h1>My Projects</h1>
+        <p>Exploring creativity through code and design</p>
     </header>
 
-    <!-- Main Content -->
+    <!-- Projects Grid -->
     <main class="projects-container">
         <aside class="projects-sidebar">
-            <div class="sidebar-content">
-                <h2>Featured Work</h2>
-                <p>A collection of my best projects showcasing web development, design, and creative solutions.</p>
-            </div>
+            <h2>Featured Work</h2>
+            <p>A collection of my best projects showcasing web development, design, and creative solutions.</p>
         </aside>
 
-        <section class="projects-grid">
+        <div class="projects-grid">
             <!-- Project 1 -->
-            <article class="project-card">
+            <div class="project-card">
                 <div class="project-thumbnail">
-                    <img src="./images/project1.jpg" alt="Project 1">
+                    <img src="images/project1.jpg" alt="Project 1">
                     <div class="project-overlay">
-                        <div class="project-details">
-                            <h3>3D Globe Visualization</h3>
-                            <span class="category">WebGL / Three.js</span>
-                            <a href="#" class="project-link">View Project</a>
-                        </div>
+                        <h3>Web Application</h3>
+                        <span class="category">Frontend Development</span>
+                        <a href="#" class="view-project">View Project</a>
                     </div>
                 </div>
-            </article>
+            </div>
 
             <!-- Project 2 -->
-            <article class="project-card">
+            <div class="project-card">
                 <div class="project-thumbnail">
-                    <img src="./images/project2.jpg" alt="Project 2">
+                    <img src="images/project2.jpg" alt="Project 2">
                     <div class="project-overlay">
-                        <div class="project-details">
-                            <h3>Portfolio Website</h3>
-                            <span class="category">Web Development</span>
-                            <a href="#" class="project-link">View Project</a>
-                        </div>
+                        <h3>E-commerce Platform</h3>
+                        <span class="category">Full Stack Development</span>
+                        <a href="#" class="view-project">View Project</a>
                     </div>
                 </div>
-            </article>
+            </div>
 
             <!-- Project 3 -->
-            <article class="project-card">
+            <div class="project-card">
                 <div class="project-thumbnail">
-                    <img src="./images/project3.jpg" alt="Project 3">
+                    <img src="images/project3.jpg" alt="Project 3">
                     <div class="project-overlay">
-                        <div class="project-details">
-                            <h3>Interactive Dashboard</h3>
-                            <span class="category">UI/UX Design</span>
-                            <a href="#" class="project-link">View Project</a>
-                        </div>
+                        <h3>Mobile App</h3>
+                        <span class="category">UI/UX Design</span>
+                        <a href="#" class="view-project">View Project</a>
                     </div>
                 </div>
-            </article>
+            </div>
 
             <!-- Project 4 -->
-            <article class="project-card">
+            <div class="project-card">
                 <div class="project-thumbnail">
-                    <img src="./images/project4.jpg" alt="Project 4">
+                    <img src="images/project4.jpg" alt="Project 4">
                     <div class="project-overlay">
-                        <div class="project-details">
-                            <h3>Mobile App</h3>
-                            <span class="category">App Development</span>
-                            <a href="#" class="project-link">View Project</a>
-                        </div>
+                        <h3>Portfolio Website</h3>
+                        <span class="category">Web Design</span>
+                        <a href="#" class="view-project">View Project</a>
                     </div>
                 </div>
-            </article>
+            </div>
 
             <!-- Project 5 -->
-            <article class="project-card">
+            <div class="project-card">
                 <div class="project-thumbnail">
-                    <img src="./images/project5.jpg" alt="Project 5">
+                    <img src="images/project5.jpg" alt="Project 5">
                     <div class="project-overlay">
-                        <div class="project-details">
-                            <h3>E-commerce Platform</h3>
-                            <span class="category">Full Stack</span>
-                            <a href="#" class="project-link">View Project</a>
-                        </div>
+                        <h3>Blog Platform</h3>
+                        <span class="category">Backend Development</span>
+                        <a href="#" class="view-project">View Project</a>
                     </div>
                 </div>
-            </article>
+            </div>
 
             <!-- Project 6 -->
-            <article class="project-card">
+            <div class="project-card">
                 <div class="project-thumbnail">
-                    <img src="./images/project6.jpg" alt="Project 6">
+                    <img src="images/project6.jpg" alt="Project 6">
                     <div class="project-overlay">
-                        <div class="project-details">
-                            <h3>Data Visualization</h3>
-                            <span class="category">D3.js</span>
-                            <a href="#" class="project-link">View Project</a>
-                        </div>
+                        <h3>Analytics Dashboard</h3>
+                        <span class="category">Data Visualization</span>
+                        <a href="#" class="view-project">View Project</a>
                     </div>
                 </div>
-            </article>
-        </section>
+            </div>
+        </div>
     </main>
 
-    <script src="./js/projects.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/projects.js"></script>
 </body>
 </html>

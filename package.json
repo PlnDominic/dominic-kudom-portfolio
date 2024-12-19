@@ -2,12 +2,21 @@
   "name": "arkon.digital",
   "version": "1.0.0",
   "main": "server.js",
+  "homepage": "https://dominic-kudom.github.io/dominic-kudom-portfolio",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "node server.js",
+    "predeploy": "if exist build rd /s /q build && mkdir build && xcopy /E /I index.html build\\ && xcopy /E /I projects.html build\\ && xcopy /E /I css build\\css\\ && xcopy /E /I js build\\js\\ && xcopy /E /I images build\\images\\ && xcopy /E /I assets build\\assets\\ && xcopy /E /I _DataURI build\\_DataURI\\ && xcopy /E /I fonts.googleapis.com build\\fonts.googleapis.com\\ && xcopy /E /I fonts.gstatic.com build\\fonts.gstatic.com\\ && xcopy /E /I www.googletagmanager.com build\\www.googletagmanager.com\\ && xcopy /E /I favicon-32x32.82893087.png build\\",
+    "deploy": "gh-pages -d build"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": ""
+  "description": "",
+  "dependencies": {
+    "express": "^4.21.2"
+  },
+  "devDependencies": {
+    "gh-pages": "^6.1.0"
+  }
 }
